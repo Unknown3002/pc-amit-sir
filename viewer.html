@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Viewer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center p-4">
+
+<h1 class="text-xl font-bold mb-4">PDF Viewer</h1>
+
+<div class="flex gap-4 mb-4">
+  <!-- Download Button -->
+  <a id="dlBtn" class="bg-purple-600 px-4 py-2 rounded shadow hover:bg-purple-800">
+    🪶 DL PDF
+  </a>
+  <!-- View Button -->
+  <a id="viewBtn" target="_blank" class="bg-green-600 px-4 py-2 rounded shadow hover:bg-green-800">
+    🪶 View PDF
+  </a>
+</div>
+
+<!-- Preview Frame -->
+<iframe id="pdfFrame" class="w-full h-[80vh] border border-gray-700 rounded" style="max-width: 1000px;"></iframe>
+
+<script>
+  // Get file from URL parameter
+  const params = new URLSearchParams(window.location.search);
+  const file = params.get("file");
+
+  if (!file) {
+    document.body.innerHTML = "<p class='text-red-500'>No PDF file specified.</p>";
+  } else {
+    // Set download link
+    document.getElementById("dlBtn").href = file;
+    document.getElementById("dlBtn").setAttribute("download", file.split("/").pop());
+
+    // Set view link
+    document.getElementById("viewBtn").href = file;
+
+    // Embed PDF for preview
+    document.getElementById("pdfFrame").src = file;
+  }
+</script>
+
+</body>
+</html>
